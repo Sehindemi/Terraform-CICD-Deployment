@@ -24,7 +24,7 @@ resource "aws_vpc" "cicd_vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    name = var.project_name
+    Name = var.project_name
   }
 }
 
@@ -35,7 +35,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
   tags = {
-    name = "public-${var.project_name}-${count.index}"
+    Name = "public-subnet-${var.project_name}-${count.index + 1}"
   }
 }
 
@@ -72,7 +72,7 @@ resource "aws_security_group" "public_vpc_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "public-sg${var.project_name}"
+    Name = "allow ssh"
   }
 }
 
